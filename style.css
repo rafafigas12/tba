@@ -1,0 +1,198 @@
+:root {
+  color-scheme: dark;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html {
+  scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 72px);
+  overflow-x: hidden;
+}
+
+body {
+  background: #0B0B0F;
+  color: #9CA3AF;
+  font-family: 'Barlow', system-ui, sans-serif;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  background: rgba(11, 11, 15, 0.9);
+  backdrop-filter: blur(12px);
+  z-index: 60;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.glass:hover {
+  border-color: rgba(112, 160, 90, 0.55);
+  transform: translateY(-2px);
+}
+
+.btn {
+  transition: transform 0.15s, background 0.2s, border-color 0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* FONTE DE DESTAQUE: Druk Condensed é licenciada e não está nas Google Fonts.
+   Para a usar, adiciona o teu ficheiro licenciado aqui (embutido em base64 ou alojado no teu site):
+   @font-face { font-family:'Druk Condensed'; src:url('druk-condensed.woff2') format('woff2'); font-weight:400; font-display:swap; }
+   Até lá, a Anton é usada como alternativa próxima. */
+.font-display {
+  font-weight: 400 !important;
+  letter-spacing: 0.01em;
+}
+
+.font-brush {
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+:focus-visible {
+  outline: 2px solid #70A05A;
+  outline-offset: 3px;
+}
+
+details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+details[open] .plus {
+  transform: rotate(45deg);
+}
+
+.plus {
+  transition: transform 0.2s;
+}
+
+.hero-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, #000 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse at 50% 30%, #000 20%, transparent 75%);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-in > * {
+  animation: rise 0.6s ease-out both;
+}
+
+.hero-in > *:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.hero-in > *:nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+.hero-in > *:nth-child(4) {
+  animation-delay: 0.24s;
+}
+
+.hero-in > *:nth-child(5) {
+  animation-delay: 0.32s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-in > * {
+    animation: none;
+  }
+  .btn,
+  .glass,
+  .plus,
+  .menu-bar,
+  #mobile-menu,
+  #menu-backdrop {
+    transition: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ============ MENU MOBILE / HAMBÚRGUER ============ */
+.menu-open .menu-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.menu-open .menu-bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.menu-open .menu-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+#mobile-menu {
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.25s;
+  transform-origin: top center;
+}
+
+#mobile-menu.is-open {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+  pointer-events: auto;
+}
+
+#mobile-menu:not(.is-open) {
+  opacity: 0;
+  transform: translateY(-12px);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+#menu-backdrop {
+  transition: opacity 0.25s ease, visibility 0.25s;
+}
+
+#menu-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+#menu-backdrop:not(.is-open) {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
